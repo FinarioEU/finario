@@ -9,9 +9,22 @@
     "emitDecoratorMetadata": true,
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "lib": [
+      "es2020",
+      "dom"
+    ],
+    "types": [
+      "node"
+    ]
   },
   "include": [
     "src/**/*"
+  ],
+  "exclude": [
+    "src/queues/**/*",
+    "src/workers/**/*",
+    "**/*.spec.ts"
   ]
 }
