@@ -1,5 +1,5 @@
 // === API-Basis-URL anpassen, falls nötig ===
-const API_BASE = "https://finario-api.onrender.com"; // deine Render-API
+const API_BASE = "https://finario-api.onrender.com";
 
 const elStatus = document.getElementById("api-status");
 const elHealth = document.getElementById("health-json");
