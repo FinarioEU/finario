@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
+    "module": "esnext",
     "target": "es2020",
+    "moduleResolution": "node",
     "rootDir": "src",
     "outDir": "dist",
     "experimentalDecorators": true,
@@ -11,5 +11,5 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*"]
+  "include": ["src/*/"]
 }
