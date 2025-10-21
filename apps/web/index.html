@@ -1,37 +1,39 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="de">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Finario</title>
-    <link rel="stylesheet" href="./styles.css" />
-  </head>
-  <body>
-    <main class="wrap">
-      <h1>Finario</h1>
-      <p>Leichte Demo-Seite, angebunden an die Finario API</p>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Finario</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
 
-      <section class="cards">
-        <div class="card">
-          <h2>API Status</h2>
-          <div id="api-status" class="value">Lade …</div>
-          <pre id="health-json" class="json"></pre>
-        </div>
+<body>
+  <main class="wrap">
+    <h1>Finario</h1>
+    <p>Leichte Demo-Seite, angebunden an die Finario API</p>
 
-        <div class="card">
-          <h2>Version</h2>
-          <div id="api-version" class="value">Lade …</div>
-          <pre id="version-json" class="json"></pre>
-        </div>
+    <section class="cards">
+      <div class="card">
+        <h2>API Status</h2>
+        <div id="api-status" class="value">lade…</div>
+        <pre id="health-json" class="json">lade…</pre>
+      </div>
 
-        <div class="card">
-          <h2>Test-Request</h2>
-          <button id="btn-refresh">Neu laden</button>
-          <p class="hint">Tipp: Die API-URL ist in <code>app.js</code> konfiguriert.</p>
-        </div>
-      </section>
-    </main>
+      <div class="card">
+        <h2>Version</h2>
+        <div id="api-version" class="value">lade…</div>
+        <pre id="version-json" class="json">lade…</pre>
+      </div>
 
-    <script src="./app.js" defer></script>
-  </body>
+      <div class="card">
+        <h2>Test-Request</h2>
+        <button id="btn-refresh">Neu laden</button>
+        <p class="hint">Tipp: Deine API-URL ist in <code>app.js</code> konfiguriert.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Cache-Busting: sorgt dafür, dass neue Version sofort geladen wird -->
+  <script src="./app.js?v=4" defer></script>
+</body>
 </html>
