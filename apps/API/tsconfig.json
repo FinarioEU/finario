@@ -1,17 +1,15 @@
 {
   "compilerOptions": {
-    "module": "esnext",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "target": "es2020",
-    "moduleResolution": "node",
-    "outDir": "dist",
     "rootDir": "src",
+    "outDir": "dist",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "types": ["node"],                   // <— NEU
-    "typeRoots": ["./node_modules/@types"] // <— optional, schadet nicht
+    "strict": true,
+    "skipLibCheck": true
   },
   "include": ["src/**/*"]
 }
