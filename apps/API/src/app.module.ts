@@ -8,24 +8,16 @@ import { VersionController } from './version.controller.js';
 
 @Module({
   imports: [
-    // .env für spätere DB/Keys usw.
     ConfigModule.forRoot({ isGlobal: true }),
-
-    // Rate Limiting: 60 Requests pro Minute
-    ThrottlerModule.forRoot([
-      {
-        name: 'default',
-        ttl: 60000, // 60 Sekunden
-        limit: 60,
-      },
-    ]),
+    ThrottlerModule.forRoot([{
+      name: 'default',
+      ttl: 60_000,
+      limit: 60,
+    }]),
   ],
   controllers: [AppController, VersionController],
   providers: [
-    {
-      provide: APP_GUARD,
-      useClass: ThrottlerGuard,
-    },
+    { provide: APP_GUARD, useClass: ThrottlerGuard },
   ],
 })
 export class AppModule {}
