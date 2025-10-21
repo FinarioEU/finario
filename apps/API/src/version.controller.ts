@@ -1,9 +1,12 @@
 import { Controller, Get } from '@nestjs/common';
+import * as pkg from '../package.json';
 
 @Controller('api')
 export class VersionController {
   @Get('version')
-  getVersion() {
-    return { name: 'Finario API', version: '1.0.0' };
+  version() {
+    // @ts-ignore – TypeScript stört sich an JSON-Import
+    const { name, version } = pkg;
+    return { name, version };
   }
 }
