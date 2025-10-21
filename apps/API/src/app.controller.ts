@@ -2,12 +2,12 @@ import { Controller, Get } from '@nestjs/common';
 
 @Controller()
 export class AppController {
-  @Get('/')
-  getRoot() {
-    return { status: 'ok', message: 'Finario API is running 🚀' };
+  @Get()
+  root() {
+    return 'Finario API';
   }
 
-  @Get('/health')
+  @Get('health')
   getHealth() {
     return { status: 'ok', message: 'Finario API is running 🚀' };
   }
