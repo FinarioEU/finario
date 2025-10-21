@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Finario – Status & Demo</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Finario</h1>
+    <p>Leichte Demo-Seite, angebunden an die Finario API</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>API Status</h2>
+      <div id="api-status" class="pill">Lade…</div>
+      <pre id="health-json" class="pre"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Version</h2>
+      <div id="api-version" class="pill">Lade…</div>
+      <pre id="version-json" class="pre"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Test-Request</h2>
+      <button id="btn-refresh">Neu laden</button>
+      <p class="hint">
+        Tipp: Deine API-URL ist in <code>app.js</code> konfiguriert.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <small>© <span id="year"></span> Finario</small>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>
