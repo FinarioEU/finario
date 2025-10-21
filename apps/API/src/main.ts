@@ -8,19 +8,19 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Security-Header
+  // Security Header
   app.use(helmet());
 
-  // CORS (Frontend-URL später hier präzisieren)
+  // CORS (Frontend kann später hier eingetragen werden)
   app.enableCors({
-    origin: '*', // TODO: später auf deine Web-App-Domain einschränken
+    origin: '*',
     credentials: false,
   });
 
   // Globales Rate-Limit
   app.useGlobalGuards(new ThrottlerGuard());
 
-  // Optional: request body validation (für DTOs in Zukunft)
+  // Validation für DTOs (später)
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 
   const port = Number(process.env.PORT) || 4000;
