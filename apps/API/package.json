@@ -2,7 +2,6 @@
   "name": "finario-api",
   "version": "1.0.0",
   "description": "Backend API für Finario",
-  "type": "module",
   "main": "dist/main.js",
   "scripts": {
     "build": "tsc",
@@ -11,13 +10,15 @@
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
+    "@nestjs/config": "^3.1.1",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
-    "@nestjs/config": "^3.1.1",
     "@nestjs/throttler": "^5.1.2",
-    "rxjs": "^7.8.1",
+    "helmet": "^7.1.0",
     "reflect-metadata": "^0.1.13",
-    "helmet": "^7.1.0"
+    "rxjs": "^7.8.1",
+    "class-transformer": "^0.5.1",      // <-- NEU
+    "class-validator": "^0.14.0"        // <-- NEU
   },
   "devDependencies": {
     "typescript": "^5.4.5",
