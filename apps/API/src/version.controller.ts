@@ -1,11 +1,10 @@
 import { Controller, Get } from '@nestjs/common';
-import * as pkg from '../package.json';
+import pkg from '../package.json' assert { type: 'json' };
 
 @Controller('api')
 export class VersionController {
   @Get('version')
-  version() {
-    // @ts-ignore – TypeScript stört sich an JSON-Import
+  getVersion() {
     const { name, version } = pkg;
     return { name, version };
   }
