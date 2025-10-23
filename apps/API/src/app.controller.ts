@@ -3,8 +3,8 @@ import { Controller, Get } from '@nestjs/common';
 @Controller()
 export class AppController {
   @Get()
-  root() {
-    return 'Finario API';
+  getRoot() {
+    return { message: 'Finario API läuft 🚀' };
   }
 
   @Get('health')
