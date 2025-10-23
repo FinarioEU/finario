@@ -7,24 +7,24 @@ import helmet from 'helmet';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Security Header
+  // Sicherheit
   app.use(helmet());
 
-  // * CORS exakt für deine Web-Domain *
+  // --- KORREKTE CORS-FREIGABE ---
   app.enableCors({
-    origin: ['https://finario-web.onrender.com'],
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Accept', 'Authorization'],
-    exposedHeaders: ['Content-Length', 'Content-Type'],
+    origin: [
+      'https://finario-web.onrender.com',
+      'https://finario-web.onrender.com/',
+    ],
+    methods: 'GET,POST,PUT,PATCH,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type, Accept, Authorization',
     credentials: false,
-    maxAge: 86400,
   });
 
-  // Global Validation
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 
-  const port = Number(process.env.PORT) || 4000;
+  const port = process.env.PORT || 4000;
   await app.listen(port, '0.0.0.0');
-  console.log(Server läuft auf Port: ${port});
+  console.log( Finario API läuft auf Port ${port});
 }
 bootstrap();
