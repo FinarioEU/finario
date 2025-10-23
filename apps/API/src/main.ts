@@ -1,23 +1,25 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import * as express from 'express';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  //  Korrekte CORS-Konfiguration für Render
+  //  Aktiviert CORS korrekt
   app.enableCors({
-    origin: '*', // erlaubt alle Domains (später kannst du das einschränken)
-    methods: 'GET,HEAD,OPTIONS',
-    allowedHeaders: 'Content-Type, Accept, Origin',
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Origin', 'Accept'],
   });
 
-  //  Zusätzlich sicherstellen, dass alle Preflight-Optionen beantwortet werden
-  app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Origin, Accept, Content-Type');
+  //  Sicherheit: erzwingt Header für ALLE Anfragen
+  app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Origin, Accept');
     if (req.method === 'OPTIONS') {
-      return res.sendStatus(204);
+      res.sendStatus(204);
+      return;
     }
     next();
   });
