@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { VersionController } from './version.controller';
 
 @Module({
+  imports: [],
   controllers: [AppController, VersionController],
   providers: []
 })
