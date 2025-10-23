@@ -1,32 +1,30 @@
+import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import * as express from 'express';
+import { ValidationPipe } from '@nestjs/common';
+import helmet from 'helmet';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  //  Aktiviert CORS korrekt
+  // Security Header
+  app.use(helmet());
+
+  // * CORS exakt für deine Web-Domain *
   app.enableCors({
-    origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'Origin', 'Accept'],
+    origin: ['https://finario-web.onrender.com'],
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Accept', 'Authorization'],
+    exposedHeaders: ['Content-Length', 'Content-Type'],
+    credentials: false,
+    maxAge: 86400,
   });
 
-  //  Sicherheit: erzwingt Header für ALLE Anfragen
-  app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Origin, Accept');
-    if (req.method === 'OPTIONS') {
-      res.sendStatus(204);
-      return;
-    }
-    next();
-  });
+  // Global Validation
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 
-  const port = process.env.PORT || 4000;
+  const port = Number(process.env.PORT) || 4000;
   await app.listen(port, '0.0.0.0');
-  console.log( Finario API läuft auf Port ${port});
+  console.log(Server läuft auf Port: ${port});
 }
-
 bootstrap();
