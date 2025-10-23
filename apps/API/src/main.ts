@@ -1,36 +1,41 @@
 import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module.js';
+import { AppModule } from './app.module';
 import helmet from 'helmet';
 import { ValidationPipe } from '@nestjs/common';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Security Header
-  app.use(helmet());
+  // Security Header – ohne strikte CSP/COREP (wir liefern nur JSON)
+  app.use(
+    helmet({
+      contentSecurityPolicy: false,
+      crossOriginEmbedderPolicy: false,
+      crossOriginOpenerPolicy: false,
+      crossOriginResourcePolicy: { policy: 'cross-origin' },
+    }),
+  );
 
-  // CORS: trage hier später deine Frontend-URL ein
+  // * CORS sehr großzügig, damit Static-Site auf onrender.com zugreifen darf *
   app.enableCors({
-    origin: ['https://DEIN-FRONTEND.example'], // vorerst offen lassen: ['*']
-    credentials: false,
+    origin: [
+      /\.onrender\.com$/,                     // alle *.onrender.com (Render)
+      'http://localhost:3000',
+      'http://localhost:5173',
+      'http://localhost:8080',
+    ],
+    methods: ['GET', 'HEAD', 'OPTIONS'],
+    allowedHeaders: ['Accept', 'Content-Type'],
+    credentials: false,                       // wir brauchen keine Cookies/Secrets
+    maxAge: 86400,
   });
 
-  // Global Validation
+  // Globale Validation (Future-Proofing)
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
-
-  // Swagger
-  const config = new DocumentBuilder()
-    .setTitle('Finario API')
-    .setDescription('Finario API Dokumentation')
-    .setVersion('1.0.0')
-    .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('docs', app, document);
 
   const port = Number(process.env.PORT) || 4000;
   await app.listen(port, '0.0.0.0');
-  console.log(`Server läuft auf Port: ${port}`);
+  console.log( Server läuft auf Port: ${port});
 }
 bootstrap();
