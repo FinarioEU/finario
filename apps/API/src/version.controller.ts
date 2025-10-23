@@ -1,12 +1,25 @@
-import { Controller, Get } from '@nestjs/common';
-// wichtig: eine Ebene hoch aus src/
-import * as pkg from '../package.json';
+// apps/API/src/version.controller.ts
 
-@Controller('api')
+import { Controller, Get } from '@nestjs/common';
+import { name as appName, version as appVersion } from '../package.json'; // wichtig: Pfad eine Ebene hoch
+
+@Controller('api') // Klein geschrieben – wichtig!
 export class VersionController {
-  // /api/version -> von der Web-App benutzt
+  // Gibt die aktuelle Version der API zurück
   @Get('version')
   getVersion() {
-    return { name: (pkg as any).name ?? 'finario-api', version: (pkg as any).version ?? '0.0.0' };
+    return {
+      name: appName || 'finario-api',
+      version: appVersion || '0.0.0',
+    };
+  }
+
+  // Healthcheck-Endpunkt (für Render und manuelle Tests)
+  @Get('health')
+  getHealth() {
+    return {
+      status: 'OK',
+      message: 'Finario API läuft 🌸',
+    };
   }
 }
