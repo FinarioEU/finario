@@ -7,37 +7,29 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Security headers
+  // Sicherheits-Header
   app.use(helmet());
 
-  // --- CORS exakt erlauben (deine Web-Domain bei Render) ---
-  const allowed = new Set<string>([
-    'https://finario-web.onrender.com',
-    'http://localhost:5173',
-    'http://localhost:3000',
-  ]);
-
+  // CORS: erlaube deine Web-Seite auf Render
   app.enableCors({
-    origin(origin, cb) {
-      if (!origin) return cb(null, true); // direkte Aufrufe (z.B. Browser /health)
-      if (allowed.has(origin)) return cb(null, true);
-      return cb(new Error('Not allowed by CORS'), false);
-    },
+    origin: [
+      'https://finario-web.onrender.com'
+    ],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Accept', 'Authorization'],
     credentials: false,
-    maxAge: 86400,
+    maxAge: 86400
   });
 
-  // Nur echte API-Routen unter /api (root /health bleibt frei)
+  // Alle echten API-Routen unter /api, Health bleibt frei
   app.setGlobalPrefix('api', { exclude: ['health'] });
 
-  // Globale Validation
+  // Validierung
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 
   const port = Number(process.env.PORT) || 4000;
   await app.listen(port, '0.0.0.0');
   // eslint-disable-next-line no-console
-  console.log(Finario API läuft auf Port ${port});
+  console.log(`Finario API läuft auf Port ${port}`);
 }
 bootstrap();
