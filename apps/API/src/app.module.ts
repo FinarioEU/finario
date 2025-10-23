@@ -4,6 +4,6 @@ import { VersionController } from './version.controller';
 
 @Module({
   controllers: [AppController, VersionController],
-  providers: [],
+  providers: []
 })
 export class AppModule {}
